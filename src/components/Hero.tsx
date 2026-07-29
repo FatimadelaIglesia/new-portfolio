@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { personalInfo } from "@/lib/data";
 import { LeafIcon, PinIcon } from "./icons";
 
@@ -58,10 +59,15 @@ export default function Hero() {
             aria-hidden="true"
             className="absolute inset-0 -z-10 scale-110 rounded-[45%_55%_60%_40%/50%_45%_55%_50%] bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/20"
           />
-          <div className="flex size-44 items-center justify-center rounded-[45%_55%_60%_40%/50%_45%_55%_50%] border-2 border-primary/30 bg-surface shadow-lg sm:size-56">
-            <span className="font-heading text-5xl font-bold text-primary sm:text-6xl">
-              FI
-            </span>
+          <div className="relative size-44 overflow-hidden rounded-[45%_55%_60%_40%/50%_45%_55%_50%] border-2 border-primary/30 bg-surface shadow-lg sm:size-56">
+            <Image
+              src="/fatima.jpg"
+              alt="Portrait of Fatima de la Iglesia"
+              fill
+              priority
+              sizes="(min-width: 640px) 224px, 176px"
+              className="object-cover"
+            />
           </div>
         </div>
       </div>
