@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { personalInfo } from "@/lib/data";
-import { LeafIcon, PinIcon } from "./icons";
+import { DownloadIcon, LeafIcon, PinIcon } from "./icons";
 
 export default function Hero() {
   return (
@@ -50,6 +50,14 @@ export default function Hero() {
               className="rounded-full border border-primary px-6 py-3 text-center text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10"
             >
               Get In Touch
+            </a>
+            <a
+              href={personalInfo.resumeUrl}
+              download
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-6 py-3 text-center text-sm font-semibold text-accent transition-colors hover:bg-accent/10"
+            >
+              <DownloadIcon className="size-4" />
+              Download Resume
             </a>
           </div>
         </div>

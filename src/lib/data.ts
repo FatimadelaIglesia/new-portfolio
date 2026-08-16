@@ -5,6 +5,7 @@ export const personalInfo = {
   email: "fatimaiglesiav@gmail.com",
   phone: "+44 7837 275235",
   github: "https://github.com/FatimadelaIglesia",
+  resumeUrl: "/Fatima-de-la-Iglesia-Resume.pdf",
   bio: "I'm a Junior Web Developer with a strong passion for creating engaging, user-friendly, and functional digital experiences. Through my training and personal projects, I've developed skills in HTML, CSS, JavaScript, and modern technologies such as React, Node.js, and databases. I enjoy solving problems through code and enhancing user experiences by focusing on performance, usability, and accessibility.",
   goal: "My goal is to keep growing within a dynamic team where I can apply my knowledge and contribute to innovative projects. While I'm particularly drawn to front-end development, I'm also eager to expand my expertise in back-end and full-stack development.",
 };

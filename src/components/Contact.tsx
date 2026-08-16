@@ -1,5 +1,5 @@
 import { personalInfo } from "@/lib/data";
-import { GitHubIcon, MailIcon, PhoneIcon, PinIcon } from "./icons";
+import { DownloadIcon, GitHubIcon, MailIcon, PhoneIcon, PinIcon } from "./icons";
 
 export default function Contact() {
   return (
@@ -55,12 +55,22 @@ export default function Contact() {
           {personalInfo.location}
         </p>
 
-        <a
-          href={`mailto:${personalInfo.email}`}
-          className="mt-8 inline-block rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
-        >
-          Say Hello
-        </a>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="inline-block rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
+          >
+            Say Hello
+          </a>
+          <a
+            href={personalInfo.resumeUrl}
+            download
+            className="inline-flex items-center gap-2 rounded-full border border-primary px-8 py-3.5 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10"
+          >
+            <DownloadIcon className="size-4" />
+            Download Resume
+          </a>
+        </div>
       </div>
     </section>
   );
