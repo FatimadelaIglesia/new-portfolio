@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #EA580C;
-  --color-primary-dark: #C2410C;
-  --color-secondary: #D97706;
-  --color-accent: #EC4899;
-  --color-background: #FFFBEB;
-  --color-surface: #FFF7ED;
-  --color-text: #A16207;
-  --color-text-muted: #B45309;
-  --color-border: #FDE68A;
-  --color-title: #B91C1C;
+  --color-primary: #15803D;
+  --color-primary-dark: #14532D;
+  --color-secondary: #166534;
+  --color-accent: #A16207;
+  --color-background: #F9F2FD;
+  --color-surface: #ECF9F1;
+  --color-text: #52144A;
+  --color-text-muted: #6B3762;
+  --color-border: #BFE0CC;
   --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-josefin), var(--font-lato), sans-serif;
 }
@@ -29,7 +28,7 @@ h3,
 h4 {
   font-family: var(--font-heading), var(--font-sans), sans-serif;
   font-weight: 700;
-  color: var(--color-title);
+  color: var(--color-text);
 }
 ::selection {
   background: var(--color-primary);
