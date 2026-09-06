@@ -23,14 +23,16 @@ export default function ContactPage() {
                 Say hello
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-text-muted">
-                Placeholder intro - a warm line inviting people to reach out,
-                mentioning what kind of roles or projects you are open to.
+                I am currently looking for my first junior front-end role,
+                ideally somewhere remote-friendly, where I can keep learning
+                while contributing to real projects. If that sounds like a
+                good fit on your end, I would love to hear from you.
               </p>
             </div>
             <div className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
               <Image
-                src="https://picsum.photos/seed/contact-coffee/480/360"
-                alt="Placeholder contact photo"
+                src="https://images.unsplash.com/photo-1763568258314-24ef37bb52e2?fm=jpg&q=80&w=480&h=360&auto=format&fit=crop"
+                alt="Laptop screen displaying code with a small plush toy beside it"
                 width={480}
                 height={360}
                 priority
@@ -81,9 +83,8 @@ export default function ContactPage() {
               Send a message
             </h2>
             <p className="mt-2 text-sm text-text-muted">
-              Placeholder form UI - not wired up to send anything yet. Say the
-              word once you are ready to connect it to an email service or
-              form handler.
+              This form is not connected to anything yet, so for now the
+              fastest way to reach me is by email or GitHub above.
             </p>
             <form className="mt-6 flex flex-col gap-4">
               <input
