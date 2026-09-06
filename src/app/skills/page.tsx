@@ -22,15 +22,18 @@ export default function SkillsPage() {
                 What I bring to the table
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-text-muted">
-                Placeholder intro paragraph — a short, friendly summary of your
-                skillset and how you like to work. Swap this for your real
-                copy once the layout looks right.
+                I am building my front-end toolkit through She Codes'
+                Junior Front-End Developer program, layering React and
+                JavaScript on top of the HTML and CSS fundamentals I started
+                with. I like understanding how things work under the hood,
+                which is why Python and a growing curiosity about back-end
+                development have found their way onto this list too.
               </p>
             </div>
             <div className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
               <Image
-                src="https://picsum.photos/seed/workspace-desk/480/360"
-                alt="Placeholder workspace photo"
+                src="https://images.unsplash.com/photo-1763568258330-039d2f3dfc76?fm=jpg&q=80&w=480&h=360&auto=format&fit=crop"
+                alt="Laptop screen displaying lines of code"
                 width={480}
                 height={360}
                 priority
