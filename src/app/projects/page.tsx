@@ -20,11 +20,11 @@ export default function ProjectsPage() {
               Projects
             </span>
             <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight text-text sm:text-5xl">
-              Things I&apos;ve built
+              Things I have built
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-text-muted">
-              Placeholder intro — a line about your approach to projects, or
-              what kind of work you&apos;re looking to do more of.
+              Placeholder intro - a line about your approach to projects, or
+              what kind of work you are looking to do more of.
             </p>
           </div>
           <div className="relative mx-auto mt-10 max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
@@ -47,12 +47,7 @@ export default function ProjectsPage() {
               ))}
             </div>
             <div className="mt-10 text-center">
-              
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10"
-              >
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10">
                 <GitHubIcon className="size-4" />
                 See more on GitHub
               </a>
