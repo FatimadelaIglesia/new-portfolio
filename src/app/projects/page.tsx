@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
@@ -10,7 +11,16 @@ export default function ProjectsPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <section className="relative overflow-hidden px-6 pt-16 pb-16 text-center sm:px-8 sm:pt-24">
+        <div className="mx-auto max-w-6xl px-6 pt-6 sm:px-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
+          >
+            ← Back to home
+          </Link>
+        </div>
+
+        <section className="relative overflow-hidden px-6 pt-10 pb-16 text-center sm:px-8 sm:pt-16">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl sm:h-96 sm:w-96"
