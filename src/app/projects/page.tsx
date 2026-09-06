@@ -23,14 +23,17 @@ export default function ProjectsPage() {
               Things I have built
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-text-muted">
-              Placeholder intro - a line about your approach to projects, or
-              what kind of work you are looking to do more of.
+              Everything below started as a way to practice a specific
+              skill: fetching data from an API, building a responsive
+              layout without a framework, or just getting comfortable with
+              the DOM. Each one is small, but each one taught me something
+              I still use. Full code for all of them is on my GitHub.
             </p>
           </div>
           <div className="relative mx-auto mt-10 max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
             <Image
-              src="https://picsum.photos/seed/code-desk/640/360"
-              alt="Placeholder photo"
+              src="https://images.unsplash.com/photo-1760548425425-e42e77fa38f1?fm=jpg&q=80&w=640&h=360&auto=format&fit=crop"
+              alt="Computer screen displaying colorful code snippets"
               width={640}
               height={360}
               priority
