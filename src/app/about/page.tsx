@@ -9,10 +9,18 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        {/* HERO */}
+        <div className="mx-auto max-w-6xl px-6 pt-6 sm:px-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
+          >
+            ← Back to home
+          </Link>
+        </div>
+
         <section
           id="about-top"
-          className="relative overflow-hidden px-6 pt-16 pb-20 sm:px-8 sm:pt-24 sm:pb-28"
+          className="relative overflow-hidden px-6 pt-10 pb-20 sm:px-8 sm:pt-16 sm:pb-28"
         >
           <div
             aria-hidden="true"
@@ -36,7 +44,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* BACKGROUND */}
         <section id="about-background" className="px-6 py-20 sm:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="max-w-2xl">
@@ -84,7 +91,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* SKILLS */}
         <section id="about-skills" className="px-6 py-20 sm:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="max-w-2xl">
@@ -110,76 +116,3 @@ export default function AboutPage() {
                         key={item}
                         className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary-dark"
                       >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PROJECTS */}
-        <section id="about-projects" className="px-6 py-20 sm:px-8">
-          <div className="mx-auto max-w-6xl">
-            <div className="max-w-2xl">
-              <span className="text-sm font-semibold uppercase tracking-wider text-accent">
-                Projects
-              </span>
-              <h2 className="mt-2 font-heading text-3xl font-bold text-text sm:text-4xl">
-                Things I&apos;ve built
-              </h2>
-            </div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project) => (
-                <div
-                  key={project.title}
-                  className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-6 shadow-sm"
-                >
-                  <h3 className="font-heading text-lg font-bold text-text">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-text-muted">
-                    {project.description}
-                  </p>
-                  <ul className="flex flex-wrap gap-2">
-                    {project.tech.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary-dark"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto flex gap-4">
-                    <Link
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-semibold text-primary hover:text-primary-dark"
-                    >
-                      Code →
-                    </Link>
-                    {project.liveUrl && (
-                      <Link
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-semibold text-primary hover:text-primary-dark"
-                      >
-                        Live demo →
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
-  );
-}
