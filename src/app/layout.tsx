@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Josefin_Sans, Lato } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin",
   subsets: ["latin"],
+  weight: ["700"],
   display: "swap",
 });
-
-const poppins = Poppins({
-  variable: "--font-poppins",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} h-full scroll-smooth antialiased`}
+      className={`${josefinSans.variable} ${lato.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-text">
         {children}
