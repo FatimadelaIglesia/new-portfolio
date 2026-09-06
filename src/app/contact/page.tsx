@@ -23,8 +23,8 @@ export default function ContactPage() {
                 Say hello
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-text-muted">
-                Placeholder intro — a warm line inviting people to reach out,
-                mentioning what kind of roles or projects you&apos;re open to.
+                Placeholder intro - a warm line inviting people to reach out,
+                mentioning what kind of roles or projects you are open to.
               </p>
             </div>
             <div className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
@@ -43,33 +43,20 @@ export default function ContactPage() {
         <section className="bg-surface px-6 py-20 sm:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <div className="grid gap-4 sm:grid-cols-3">
-              
-                href={`mailto:${personalInfo.email}`}
-                className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
-              >
+              <a href={`mailto:${personalInfo.email}`} className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
                 <MailIcon className="size-6 text-primary" />
                 <span className="text-sm font-semibold text-text">Email</span>
                 <span className="text-sm text-text-muted">{personalInfo.email}</span>
               </a>
-              
-                href={`tel:${personalInfo.phone.replace(/\s/g, "")}`}
-                className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
-              >
+              <a href={`tel:${personalInfo.phone.replace(/\s/g, "")}`} className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
                 <PhoneIcon className="size-6 text-primary" />
                 <span className="text-sm font-semibold text-text">Phone</span>
                 <span className="text-sm text-text-muted">{personalInfo.phone}</span>
               </a>
-              
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
-              >
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
                 <GitHubIcon className="size-6 text-primary" />
                 <span className="text-sm font-semibold text-text">GitHub</span>
-                <span className="text-sm text-text-muted">
-                  @{personalInfo.github.split("/").pop()}
-                </span>
+                <span className="text-sm text-text-muted">@{personalInfo.github.split("/").pop()}</span>
               </a>
             </div>
             <p className="mt-8 inline-flex items-center justify-center gap-1.5 text-sm text-text-muted">
@@ -77,17 +64,10 @@ export default function ContactPage() {
               {personalInfo.location}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              
-                href={`mailto:${personalInfo.email}`}
-                className="inline-block rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
-              >
+              <a href={`mailto:${personalInfo.email}`} className="inline-block rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md">
                 Say Hello
               </a>
-              
-                href={personalInfo.resumeUrl}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-primary px-8 py-3.5 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10"
-              >
+              <a href={personalInfo.resumeUrl} download className="inline-flex items-center gap-2 rounded-full border border-primary px-8 py-3.5 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10">
                 <DownloadIcon className="size-4" />
                 Download Resume
               </a>
@@ -101,8 +81,8 @@ export default function ContactPage() {
               Send a message
             </h2>
             <p className="mt-2 text-sm text-text-muted">
-              Placeholder form UI — not wired up to send anything yet. Say the
-              word once you&apos;re ready to connect it to an email service or
+              Placeholder form UI - not wired up to send anything yet. Say the
+              word once you are ready to connect it to an email service or
               form handler.
             </p>
             <form className="mt-6 flex flex-col gap-4">
