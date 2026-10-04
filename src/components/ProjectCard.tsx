@@ -1,9 +1,21 @@
+import Image from "next/image";
 import type { Project } from "@/lib/data";
 import { ExternalLinkIcon, GitHubIcon } from "./icons";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
+      {project.image && (
+        <div className="relative -mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden rounded-t-2xl border-b border-border">
+          <Image
+            src={project.image}
+            alt={`Screenshot of the ${project.title} project`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover object-top"
+          />
+        </div>
+      )}
       <h3 className="font-heading text-xl font-semibold text-text group-hover:text-primary-dark">
         {project.title}
       </h3>
