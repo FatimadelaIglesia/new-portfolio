@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { personalInfo } from "@/lib/data";
-import { CloseIcon, LeafIcon, MenuIcon } from "./icons";
+import { CloseIcon, LeafIcon } from "./icons";
 
 const pages = [
   { label: "Home", href: "/", description: "Back to the start" },
@@ -43,6 +43,24 @@ function ChevronDownIcon({ className }: { className?: string }) {
       className={className}
     >
       <path d="M5 8l5 5 5-5" />
+    </svg>
+  );
+}
+
+function PanelLeftIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M9 3v18" />
     </svg>
   );
 }
@@ -153,7 +171,7 @@ export default function Navbar() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="inline-flex items-center justify-center rounded-md p-2 text-primary-dark transition-colors hover:bg-primary/10 md:hidden"
         >
-          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          {isMenuOpen ? <CloseIcon /> : <PanelLeftIcon className="size-6" />}
         </button>
       </nav>
 
