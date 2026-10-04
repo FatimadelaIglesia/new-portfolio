@@ -16,7 +16,7 @@ export default function ContactPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
           >
-            ← Back to home
+            {"\u2190"} Back to home
           </Link>
         </div>
 
