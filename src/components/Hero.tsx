@@ -69,7 +69,7 @@ export default function Hero() {
           />
           <div className="relative size-44 overflow-hidden rounded-[45%_55%_60%_40%/50%_45%_55%_50%] border-2 border-primary/30 bg-surface shadow-lg sm:size-56">
             <Image
-              src="/fatima.jpg"
+              src="/fatima-profile.jpg"
               alt="Portrait of Fatima de la Iglesia"
               fill
               priority
