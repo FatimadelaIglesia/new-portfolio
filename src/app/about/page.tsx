@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, education, spokenLanguages, skills, projects } from "@/lib/data";
 import { PinIcon } from "@/components/icons";
 
@@ -14,7 +16,7 @@ export default function AboutPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
           >
-            ← Back to home
+            {"\u2190"} Back to home
           </Link>
         </div>
 
@@ -31,6 +33,15 @@ export default function AboutPage() {
             className="pointer-events-none absolute -bottom-32 -left-16 h-64 w-64 rounded-full bg-accent/10 blur-3xl sm:h-80 sm:w-80"
           />
           <div className="relative mx-auto max-w-3xl text-center">
+            <div className="relative mx-auto mb-6 size-32 overflow-hidden rounded-full border-2 border-primary/30 shadow-md">
+              <Image
+                src="/fatima-profile.jpg"
+                alt="Portrait of Fatima de la Iglesia"
+                fill
+                sizes="128px"
+                className="object-cover"
+              />
+            </div>
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm font-medium text-primary-dark">
               <PinIcon className="size-4 text-accent" />
               {personalInfo.location}
@@ -172,6 +183,18 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+
+        <CtaBanner
+          title="Looking for a junior front-end developer?"
+          text="I bring hands-on React and JavaScript skills, an eye for accessibility, and fluency in four languages. If you have a role in mind, I would love to hear about it."
+          primary={{ label: "Start a conversation", href: "/contact" }}
+          secondary={{
+            label: "Download my resume",
+            href: personalInfo.resumeUrl,
+            external: true,
+            download: true,
+          }}
+        />
       </main>
       <Footer />
     </>
