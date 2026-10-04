@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Fatima de la Iglesia",
   title: "Junior Web Developer",
-  location: "Rugby, UK — open to remote positions",
+  location: "Rugby, UK \u2014 open to remote positions",
   email: "fatimaiglesiav@gmail.com",
   phone: "+44 7837 275235",
   github: "https://github.com/FatimadelaIglesia",
@@ -27,7 +27,7 @@ export const spokenLanguages = ["English", "Spanish", "French", "Italian"];
 export const education = {
   school: "She Codes",
   program: "Junior Front-End Developer",
-  period: "2024 – 2026",
+  period: "2024 \u2013 2026",
 };
 
 export type Project = {
@@ -36,6 +36,7 @@ export type Project = {
   tech: string[];
   repoUrl: string;
   liveUrl?: string;
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -45,6 +46,7 @@ export const projects: Project[] = [
       "A React weather application that fetches live forecast data from a public weather API, letting users search any city and view current conditions at a glance.",
     tech: ["React", "JavaScript", "REST API"],
     repoUrl: "https://github.com/FatimadelaIglesia/fatimareact-weather-app",
+    image: "/weather-app.png",
   },
   {
     title: "Seville Travel Guide",
@@ -52,6 +54,7 @@ export const projects: Project[] = [
       "A fully responsive, multi-page travel guide showcasing Seville, Spain, hand-built with semantic HTML and Flexbox/Grid layouts that adapt smoothly from mobile to desktop.",
     tech: ["HTML", "CSS", "Responsive Design"],
     repoUrl: "https://github.com/FatimadelaIglesia/Fatimasevillaresponsive",
+    image: "/seville-guide.jpg",
   },
   {
     title: "Spanish Poem Generator",
@@ -59,6 +62,7 @@ export const projects: Project[] = [
       "An interactive JavaScript app that generates random Spanish poetry by combining word banks and sentence templates, built around DOM manipulation and array methods.",
     tech: ["JavaScript", "HTML", "CSS"],
     repoUrl: "https://github.com/FatimadelaIglesia/spanish-poem-generator",
+    image: "/poem-generator.png",
   },
   {
     title: "World Clock",
@@ -66,13 +70,15 @@ export const projects: Project[] = [
       "A JavaScript world clock that displays live local time across multiple international time zones, updating in real time for at-a-glance comparisons.",
     tech: ["JavaScript", "HTML", "CSS"],
     repoUrl: "https://github.com/FatimadelaIglesia/World-clock",
+    image: "/world-clock.png",
   },
   {
-    title: "React Component Playground",
+    title: "React Dictionary",
     description:
-      "A hands-on React sandbox used to explore component composition, props, and state while building reusable UI pieces.",
-    tech: ["React", "JavaScript"],
+      "A React dictionary app where you type any word and get matching results with a gallery of related photos, built to practise working with APIs and component state.",
+    tech: ["React", "JavaScript", "API"],
     repoUrl: "https://github.com/FatimadelaIglesia/reactengine",
     liveUrl: "https://codesandbox.io/p/github/FatimadelaIglesia/reactengine",
+    image: "/react-dictionary.jpg",
   },
 ];
