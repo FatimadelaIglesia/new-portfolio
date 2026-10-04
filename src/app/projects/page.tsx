@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
+import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, projects } from "@/lib/data";
 import { GitHubIcon } from "@/components/icons";
 
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
           >
-            ← Back to home
+            {"\u2190"} Back to home
           </Link>
         </div>
 
@@ -67,6 +68,17 @@ export default function ProjectsPage() {
             </div>
           </div>
         </section>
+
+        <CtaBanner
+          title="Have a project or role in mind?"
+          text="I am open to junior front-end roles and remote-friendly opportunities. Tell me what you are building and how I could help."
+          primary={{
+            label: "Email me directly",
+            href: `mailto:${personalInfo.email}?subject=Hello%20Fatima`,
+            external: true,
+          }}
+          secondary={{ label: "More about me", href: "/about" }}
+        />
       </main>
       <Footer />
     </>
