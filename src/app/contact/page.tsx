@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactForm from "@/components/ContactForm";
 import { personalInfo } from "@/lib/data";
 import { DownloadIcon, GitHubIcon, MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
 
@@ -90,39 +91,14 @@ export default function ContactPage() {
         <section className="px-6 py-20 sm:px-8">
           <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-surface p-8 shadow-sm">
             <h2 className="font-heading text-2xl font-bold text-text">
-              Send a message
+              Send me a message
             </h2>
             <p className="mt-2 text-sm text-text-muted">
-              This form is not connected to anything yet, so for now the
-              fastest way to reach me is by email or GitHub above.
+              Tell me a little about the role or project you have in mind.
+              Pressing send opens your email app with everything filled in,
+              ready for you to send.
             </p>
-            <form className="mt-6 flex flex-col gap-4">
-              <input
-                type="text"
-                placeholder="Your name"
-                disabled
-                className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text placeholder:text-text-muted"
-              />
-              <input
-                type="email"
-                placeholder="Your email"
-                disabled
-                className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text placeholder:text-text-muted"
-              />
-              <textarea
-                placeholder="Your message"
-                rows={4}
-                disabled
-                className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text placeholder:text-text-muted"
-              />
-              <button
-                type="button"
-                disabled
-                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white opacity-60"
-              >
-                Send (not yet connected)
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </section>
       </main>
