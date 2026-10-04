@@ -42,8 +42,8 @@ export default function ContactPage() {
             </div>
             <div className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
               <Image
-                src="https://images.unsplash.com/photo-1763568258314-24ef37bb52e2?fm=jpg&q=80&w=480&h=360&auto=format&fit=crop"
-                alt="Laptop screen displaying code with a small plush toy beside it"
+                src="/contact-photo.jpg"
+                alt="Fatima at her desk with her laptop and a ginger cat asleep beside her"
                 width={480}
                 height={360}
                 priority
@@ -102,7 +102,4 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
-  );
-}
+      <Footer
