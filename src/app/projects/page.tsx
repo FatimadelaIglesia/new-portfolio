@@ -41,14 +41,14 @@ export default function ProjectsPage() {
               I still use. Full code for all of them is on my GitHub.
             </p>
           </div>
-          <div className="relative mx-auto mt-10 max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
+          <div className="relative mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
             <Image
-              src="https://images.unsplash.com/photo-1760548425425-e42e77fa38f1?fm=jpg&q=80&w=640&h=360&auto=format&fit=crop"
-              alt="Computer screen displaying colorful code snippets"
-              width={640}
-              height={360}
+              src="/seville-hero.jpg"
+              alt="Welcome to Seville page from the Seville Travel Guide project, showing a bridge over the river"
+              width={1400}
+              height={678}
               priority
-              className="object-cover"
+              className="h-auto w-full"
             />
           </div>
         </section>
