@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CtaBanner from "@/components/CtaBanner";
 import { skills } from "@/lib/data";
 
 export default function SkillsPage() {
@@ -14,7 +15,7 @@ export default function SkillsPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
           >
-            ← Back to home
+            {"\u2190"} Back to home
           </Link>
         </div>
 
@@ -32,7 +33,7 @@ export default function SkillsPage() {
                 What I bring to the table
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-text-muted">
-                I am building my front-end toolkit through She Codes'
+                I am building my front-end toolkit through the She Codes
                 Junior Front-End Developer program, layering React and
                 JavaScript on top of the HTML and CSS fundamentals I started
                 with. I like understanding how things work under the hood,
@@ -91,6 +92,14 @@ export default function SkillsPage() {
             </div>
           </div>
         </section>
+
+        <div className="pt-20">
+          <CtaBanner
+            title="Want to see these skills in action?"
+            text="My projects put HTML, CSS, JavaScript and React to work. Browse the code on GitHub and see how I build."
+            primary={{ label: "Explore my projects", href: "/projects" }}
+          />
+        </div>
       </main>
       <Footer />
     </>
