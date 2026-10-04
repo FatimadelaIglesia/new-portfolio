@@ -43,8 +43,8 @@ export default function SkillsPage() {
             </div>
             <div className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 shadow-lg">
               <Image
-                src="https://images.unsplash.com/photo-1763568258330-039d2f3dfc76?fm=jpg&q=80&w=480&h=360&auto=format&fit=crop"
-                alt="Laptop screen displaying lines of code"
+                src="/skills-graphic.png"
+                alt="Code editor listing HTML, CSS, JavaScript, React, Python and Git, with greetings in English, Spanish, French and Italian"
                 width={480}
                 height={360}
                 priority
