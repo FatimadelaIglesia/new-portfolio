@@ -38,3 +38,67 @@ h4 {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
+
+/* ---------- Button hover effects ---------- */
+button,
+a[class*="rounded-full"] {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    opacity 200ms ease;
+}
+button[class*="rounded-full"]:not(:disabled):hover,
+a[class*="rounded-full"]:hover {
+  box-shadow: 0 10px 20px -10px rgba(21, 128, 61, 0.5);
+}
+@media (prefers-reduced-motion: no-preference) {
+  button:not(:disabled):hover,
+  a[class*="rounded-full"]:hover {
+    transform: translateY(-2px);
+  }
+  button:not(:disabled):active,
+  a[class*="rounded-full"]:active {
+    transform: translateY(0) scale(0.97);
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Hero parallax ---------- */
+.parallax {
+  --px: 0;
+  --py: 0;
+  perspective: 900px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .parallax-back {
+    transform: translate3d(calc(var(--px) * -26px), calc(var(--py) * -26px), 0);
+    transition: transform 300ms ease-out;
+  }
+  .parallax-front {
+    transform: translate3d(calc(var(--px) * 14px), calc(var(--py) * 14px), 0)
+      rotateY(calc(var(--px) * 12deg)) rotateX(calc(var(--py) * -12deg));
+    transition: transform 300ms ease-out;
+  }
+}
