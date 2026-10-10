@@ -156,6 +156,12 @@ export default function Navbar() {
             )}
           </div>
           <a
+            href="#newsletter"
+            className="rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
+          >
+            Newsletter
+          </a>
+          <a
             href={`mailto:${personalInfo.email}`}
             className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
           >
@@ -200,6 +206,20 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href="#newsletter"
+                onClick={() => setIsMenuOpen(false)}
+                className="block rounded-md px-3 py-2.5 transition-colors hover:bg-primary/10"
+              >
+                <span className="block text-base font-medium text-text">
+                  Newsletter
+                </span>
+                <span className="block text-xs text-text-muted">
+                  Get occasional updates by email
+                </span>
+              </a>
+            </li>
             <li className="pt-2">
               <a
                 href={`mailto:${personalInfo.email}`}
