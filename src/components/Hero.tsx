@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { personalInfo } from "@/lib/data";
 import { DownloadIcon, LeafIcon, PinIcon } from "./icons";
+import ParallaxFrame from "./ParallaxFrame";
 
 export default function Hero() {
   return (
@@ -16,28 +17,23 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-32 -left-16 h-64 w-64 rounded-full bg-accent/10 blur-3xl sm:h-80 sm:w-80"
       />
-
       <div className="relative mx-auto flex max-w-6xl flex-col-reverse items-center gap-12 md:flex-row md:justify-between">
         <div className="max-w-xl text-center md:text-left">
           <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm font-medium text-primary-dark">
             <LeafIcon className="size-4" />
             Available for junior front-end roles
           </p>
-
           <h1 className="mt-6 font-heading text-4xl font-bold tracking-tight text-text sm:text-5xl">
-            Hi, I&apos;m {personalInfo.name.split(" ")[0]} —{" "}
+            Hi, I&apos;m {personalInfo.name.split(" ")[0]} &mdash;{" "}
             <span className="text-primary">{personalInfo.title}</span>
           </h1>
-
           <p className="mt-5 text-lg leading-relaxed text-text-muted">
             {personalInfo.bio}
           </p>
-
           <p className="mt-4 inline-flex items-center justify-center gap-1.5 text-sm text-text-muted md:justify-start">
             <PinIcon className="size-4 text-accent" />
             {personalInfo.location}
           </p>
-
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
             <a
               href="#projects"
@@ -61,13 +57,12 @@ export default function Hero() {
             </a>
           </div>
         </div>
-
-        <div className="relative shrink-0">
+        <ParallaxFrame>
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 scale-110 rounded-[45%_55%_60%_40%/50%_45%_55%_50%] bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/20"
+            className="parallax-back absolute inset-6 -z-10 scale-110 rounded-[45%_55%_60%_40%/50%_45%_55%_50%] bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/20"
           />
-          <div className="relative size-44 overflow-hidden rounded-[45%_55%_60%_40%/50%_45%_55%_50%] border-2 border-primary/30 bg-surface shadow-lg sm:size-56">
+          <div className="parallax-front relative size-44 overflow-hidden rounded-[45%_55%_60%_40%/50%_45%_55%_50%] border-2 border-primary/30 bg-surface shadow-lg sm:size-56">
             <Image
               src="/fatima-profile.jpg"
               alt="Portrait of Fatima de la Iglesia"
@@ -77,7 +72,7 @@ export default function Hero() {
               className="object-cover"
             />
           </div>
-        </div>
+        </ParallaxFrame>
       </div>
     </section>
   );
