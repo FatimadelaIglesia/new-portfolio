@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Josefin_Sans, Lato } from "next/font/google";
 import "./globals.css";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin",
@@ -32,6 +33,7 @@ export default function RootLayout({
       className={`${josefinSans.variable} ${lato.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-text">
+        <ScrollReveal />
         {children}
       </body>
     </html>
