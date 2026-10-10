@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NewsletterForm from "./NewsletterForm";
 import { personalInfo } from "@/lib/data";
 import {
   DownloadIcon,
@@ -14,10 +15,13 @@ const footerLinks = [
   { label: "Skills", href: "/skills" },
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
+  { label: "Newsletter", href: "#newsletter" },
 ];
 
 export default function Footer() {
   return (
+    <>
+    <NewsletterForm />
     <footer className="border-t border-border/70 bg-surface">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-12 sm:px-8 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
@@ -105,5 +109,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
