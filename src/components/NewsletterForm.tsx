@@ -20,7 +20,7 @@ function validate(firstName: string, email: string): FieldErrors {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text placeholder:text-text-muted focus:border-primary";
+    "w-full rounded-lg border border-input-border bg-background px-4 py-2.5 text-sm text-text placeholder:text-text-muted focus:border-primary";
 
 export default function NewsletterForm() {
   const [firstName, setFirstName] = useState("");
