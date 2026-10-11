@@ -43,6 +43,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         >
           <GitHubIcon className="size-4" />
           Code
+          <span className="sr-only"> for {project.title} (opens in a new tab)</span>
         </a>
         {project.liveUrl && (
           <a
@@ -53,6 +54,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           >
             <ExternalLinkIcon className="size-4" />
             Live Demo
+            <span className="sr-only"> for {project.title} (opens in a new tab)</span>
           </a>
         )}
       </div>
