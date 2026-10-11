@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -5,6 +6,11 @@ import Footer from "@/components/Footer";
 import CtaBanner from "@/components/CtaBanner";
 import { skills } from "@/lib/data";
 
+export const metadata: Metadata = {
+  title: "Skills",
+  description:
+    "The tools Fatima de la Iglesia builds with: HTML, CSS, JavaScript, React and Python, plus the four languages she speaks.",
+};
 export default function SkillsPage() {
   return (
     <>
