@@ -42,7 +42,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-col gap-2">
+        <nav aria-label="Footer" className="flex flex-col gap-0.5">
           <span className="font-heading text-sm font-semibold uppercase tracking-wider text-primary-dark">
             Navigate
           </span>
@@ -50,20 +50,20 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-text-muted transition-colors hover:text-primary"
+              className="py-1.5 text-sm text-text-muted transition-colors hover:text-primary"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-0.5">
           <span className="font-heading text-sm font-semibold uppercase tracking-wider text-primary-dark">
             Connect
           </span>
           <a
             href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary"
+            className="inline-flex items-center gap-2 py-1.5 text-sm text-text-muted transition-colors hover:text-primary"
           >
             <MailIcon className="size-4 text-primary" />
             {personalInfo.email}
@@ -72,7 +72,7 @@ export default function Footer() {
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary"
+            className="inline-flex items-center gap-2 py-1.5 text-sm text-text-muted transition-colors hover:text-primary"
           >
             <GitHubIcon className="size-4 text-primary" />
             GitHub
@@ -80,7 +80,7 @@ export default function Footer() {
           <a
             href={personalInfo.resumeUrl}
             download
-            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-primary"
+            className="inline-flex items-center gap-2 py-1.5 text-sm text-text-muted transition-colors hover:text-primary"
           >
             <DownloadIcon className="size-4 text-primary" />
             Download resume
@@ -102,7 +102,7 @@ export default function Footer() {
           </p>
           <a
             href="#top"
-            className="font-medium transition-colors hover:text-primary"
+            className="py-1.5 font-medium transition-colors hover:text-primary"
           >
             Back to top
           </a>
