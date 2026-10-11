@@ -97,8 +97,15 @@ export default function Navbar() {
     };
   }, []);
 
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
+   return (
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+      <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
       <nav
         aria-label="Primary"
         className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8"
@@ -232,6 +239,8 @@ export default function Navbar() {
           </ul>
         </div>
       )}
-    </header>
+          </header>
+      <div id="main-content" tabIndex={-1} className="scroll-mt-20 outline-none" />
+    </>
   );
 }
