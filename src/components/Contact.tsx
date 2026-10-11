@@ -24,7 +24,7 @@ export default function Contact() {
           >
             <MailIcon className="size-6 text-primary" />
             <span className="text-sm font-semibold text-text">Email</span>
-            <span className="text-sm text-text-muted">{personalInfo.email}</span>
+            <span className="break-all text-sm text-text-muted">{personalInfo.email}</span>
           </a>
 
           <a
