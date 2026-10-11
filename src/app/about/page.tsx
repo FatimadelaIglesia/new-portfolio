@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, education, spokenLanguages, skills, projects } from "@/lib/data";
 import { PinIcon } from "@/components/icons";
+
 export const metadata: Metadata = {
   title: "About",
   description:
@@ -17,7 +18,7 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-6 pt-6 sm:px-8">
+        <div className="mx-auto max-w-[76rem] px-6 pt-6 sm:px-8">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
@@ -176,11 +177,11 @@ export default function AboutPage() {
                   </ul>
                   <div className="mt-auto flex gap-4">
                     <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary hover:text-primary-dark">
-                      Code
+                      Code<span className="sr-only"> for {project.title} (opens in a new tab)</span>
                     </Link>
                     {project.liveUrl && (
                       <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary hover:text-primary-dark">
-                        Live demo
+                        Live demo<span className="sr-only"> for {project.title} (opens in a new tab)</span>
                       </Link>
                     )}
                   </div>
