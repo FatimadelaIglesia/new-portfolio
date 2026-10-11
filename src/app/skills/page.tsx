@@ -11,12 +11,13 @@ export const metadata: Metadata = {
   description:
     "The tools Fatima de la Iglesia builds with: HTML, CSS, JavaScript, React and Python, plus the four languages she speaks.",
 };
+
 export default function SkillsPage() {
   return (
     <>
       <Navbar />
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-6 pt-6 sm:px-8">
+        <div className="mx-auto max-w-[76rem] px-6 pt-6 sm:px-8">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
@@ -31,7 +32,7 @@ export default function SkillsPage() {
             className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl sm:h-96 sm:w-96"
           />
           <div className="relative mx-auto flex max-w-6xl flex-col-reverse items-center gap-12 lg:flex-row lg:justify-between">
-              <div className="max-w-xl text-center lg:text-left">  
+            <div className="max-w-xl text-center lg:text-left">
               <span className="text-sm font-semibold uppercase tracking-wider text-accent">
                 Skills
               </span>
