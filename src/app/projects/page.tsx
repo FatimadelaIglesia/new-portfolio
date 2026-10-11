@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -7,6 +8,11 @@ import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, projects } from "@/lib/data";
 import { GitHubIcon } from "@/components/icons";
 
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Front-end projects by Fatima de la Iglesia, including a React weather app, a Seville travel guide, a Spanish poem generator and a world clock.",
+};
 export default function ProjectsPage() {
   return (
     <>
