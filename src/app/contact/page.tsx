@@ -66,7 +66,7 @@ export default function ContactPage() {
               <a href={`mailto:${personalInfo.email}`} className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
                 <MailIcon className="size-6 text-primary" />
                 <span className="text-sm font-semibold text-text">Email</span>
-                <span className="text-sm text-text-muted">{personalInfo.email}</span>
+                <span className="break-all text-sm text-text-muted">{personalInfo.email}</span>
               </a>
               <a href={`tel:${personalInfo.phone.replace(/\s/g, "")}`} className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
                 <PhoneIcon className="size-6 text-primary" />
