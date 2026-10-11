@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -5,6 +6,11 @@ import Footer from "@/components/Footer";
 import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, education, spokenLanguages, skills, projects } from "@/lib/data";
 import { PinIcon } from "@/components/icons";
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn about Fatima de la Iglesia, a junior web developer based in Rugby, UK: her background, She Codes training, languages and goals.",
+};
 
 export default function AboutPage() {
   return (
