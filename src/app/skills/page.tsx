@@ -30,8 +30,8 @@ export default function SkillsPage() {
             aria-hidden="true"
             className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl sm:h-96 sm:w-96"
           />
-          <div className="relative mx-auto flex max-w-6xl flex-col-reverse items-center gap-12 md:flex-row md:justify-between">
-            <div className="max-w-xl text-center md:text-left">
+          <div className="relative mx-auto flex max-w-6xl flex-col-reverse items-center gap-12 lg:flex-row lg:justify-between">
+            <div className="max-w-xl text-center lg:text-left">  
               <span className="text-sm font-semibold uppercase tracking-wider text-accent">
                 Skills
               </span>
