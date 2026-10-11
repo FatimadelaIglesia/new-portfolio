@@ -25,6 +25,8 @@ export const metadata: Metadata = {
     "Portfolio of Fatima de la Iglesia, a Junior Web Developer specializing in React, responsive design, and accessible front-end experiences.",
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,8 +35,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${josefinSans.variable} ${lato.variable} h-full scroll-smooth antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-full flex-col bg-background text-text">
         <ScrollReveal />
         {children}
