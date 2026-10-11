@@ -32,7 +32,11 @@ export default function NewsletterForm() {
     event.preventDefault();
     const foundErrors = validate(firstName, email);
     setErrors(foundErrors);
-    if (Object.keys(foundErrors).length > 0) {
+      if (Object.keys(foundErrors).length > 0) {
+      const firstInvalidId = foundErrors.firstName
+        ? "newsletter-first-name"
+        : "newsletter-email";
+      document.getElementById(firstInvalidId)?.focus();
       return;
     }
 
