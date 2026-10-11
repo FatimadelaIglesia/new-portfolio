@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -5,6 +6,12 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { personalInfo } from "@/lib/data";
 import { DownloadIcon, GitHubIcon, MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with Fatima de la Iglesia about junior front-end roles and remote-friendly opportunities.",
+};
 
 export default function ContactPage() {
   return (
