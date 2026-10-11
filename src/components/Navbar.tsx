@@ -124,7 +124,6 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               aria-expanded={isDropdownOpen}
-              aria-haspopup="true"
               aria-controls="pages-menu"
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
             >
