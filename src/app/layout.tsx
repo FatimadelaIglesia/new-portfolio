@@ -17,7 +17,10 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Fatima de la Iglesia | Junior Web Developer",
+  title: {
+    default: "Fatima de la Iglesia | Junior Web Developer",
+    template: "%s | Fatima de la Iglesia",
+  },
   description:
     "Portfolio of Fatima de la Iglesia, a Junior Web Developer specializing in React, responsive design, and accessible front-end experiences.",
 };
