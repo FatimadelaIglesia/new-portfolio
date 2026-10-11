@@ -98,7 +98,7 @@ export default function Navbar() {
     };
   }, []);
 
-   return (
+  return (
     <>
       <a
         href="#main-content"
@@ -107,139 +107,143 @@ export default function Navbar() {
         Skip to main content
       </a>
       <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
-      <nav
-        aria-label="Primary"
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8"
-      >
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-heading text-lg font-semibold text-primary-dark transition-colors hover:text-primary"
+        <nav
+          aria-label="Primary"
+          className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8"
         >
-          <LeafIcon className="size-6 text-primary" />
-          Fatima de la Iglesia
-        </Link>
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-heading text-lg font-semibold text-primary-dark transition-colors hover:text-primary"
+          >
+            <LeafIcon className="size-6 text-primary" />
+            Fatima de la Iglesia
+          </Link>
 
-        <div className="hidden items-center gap-4 md:flex">
-          <div ref={dropdownRef} className="relative">
+          <div className="hidden items-center gap-4 md:flex">
+            <div ref={dropdownRef} className="relative">
+              <button
+                type="button"
+                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                aria-expanded={isDropdownOpen}
+                aria-controls="pages-menu"
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
+              >
+                Explore my site
+                <ChevronDownIcon
+                  className={`size-4 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isDropdownOpen && (
+                <ul
+                  id="pages-menu"
+                  className="absolute right-0 mt-3 w-80 rounded-2xl border border-border bg-surface p-2 shadow-lg"
+                >
+                  {pages.map((page) => (
+                    <li key={page.href}>
+                      <Link
+                        href={page.href}
+                        onClick={() => setIsDropdownOpen(false)}
+                        aria-current={isActive(page.href) ? "page" : undefined}
+                        className={`block rounded-xl px-4 py-3 transition-colors hover:bg-primary/10 ${
+                          isActive(page.href) ? "bg-primary/10" : ""
+                        }`}
+                      >
+                        <span className="block text-sm font-semibold text-text">
+                          {page.label}
+                        </span>
+                        <span className="block text-xs text-text-muted">
+                          {page.description}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <a
+              href="#newsletter"
+              className="rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
+            >
+              Newsletter
+            </a>
+            <ThemeToggle />
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
+            >
+              Let&apos;s Talk
+            </a>
+          </div>
+
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggle />
             <button
               type="button"
-              onClick={() => setIsDropdownOpen((prev) => !prev)}
-              aria-expanded={isDropdownOpen}
-              aria-controls="pages-menu"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="inline-flex items-center justify-center rounded-md p-2 text-primary-dark transition-colors hover:bg-primary/10"
             >
-              Explore my site
-              <ChevronDownIcon
-                className={`size-4 transition-transform ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
+              {isMenuOpen ? <CloseIcon /> : <PanelLeftIcon className="size-6" />}
             </button>
-            {isDropdownOpen && (
-              <ul
-                id="pages-menu"
-                className="absolute right-0 mt-3 w-80 rounded-2xl border border-border bg-surface p-2 shadow-lg"
-              >
-                {pages.map((page) => (
-                  <li key={page.href}>
-                    <Link
-                      href={page.href}
-                      onClick={() => setIsDropdownOpen(false)}
-                      aria-current={isActive(page.href) ? "page" : undefined}
-                      className={`block rounded-xl px-4 py-3 transition-colors hover:bg-primary/10 ${
-                        isActive(page.href) ? "bg-primary/10" : ""
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold text-text">
-                        {page.label}
-                      </span>
-                      <span className="block text-xs text-text-muted">
-                        {page.description}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
-          <a
-            href="#newsletter"
-            className="rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
-          >
-            Newsletter
-          </a>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
-          >
-            Let&apos;s Talk
-          </a>
-        </div>
+        </nav>
 
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="inline-flex items-center justify-center rounded-md p-2 text-primary-dark transition-colors hover:bg-primary/10 md:hidden"
-        >
-          {isMenuOpen ? <CloseIcon /> : <PanelLeftIcon className="size-6" />}
-        </button>
-      </nav>
-
-      {isMenuOpen && (
-        <div
-          id="mobile-menu"
-          className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-6 pb-6 md:hidden"
-        >
-          <ul className="flex flex-col gap-1 pt-4">
-            {pages.map((page) => (
-              <li key={page.href}>
-                <Link
-                  href={page.href}
+        {isMenuOpen && (
+          <div
+            id="mobile-menu"
+            className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-6 pb-6 md:hidden"
+          >
+            <ul className="flex flex-col gap-1 pt-4">
+              {pages.map((page) => (
+                <li key={page.href}>
+                  <Link
+                    href={page.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-current={isActive(page.href) ? "page" : undefined}
+                    className={`block rounded-md px-3 py-2.5 transition-colors hover:bg-primary/10 ${
+                      isActive(page.href) ? "bg-primary/10" : ""
+                    }`}
+                  >
+                    <span className="block text-base font-medium text-text">
+                      {page.label}
+                    </span>
+                    <span className="block text-xs text-text-muted">
+                      {page.description}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#newsletter"
                   onClick={() => setIsMenuOpen(false)}
-                  aria-current={isActive(page.href) ? "page" : undefined}
-                  className={`block rounded-md px-3 py-2.5 transition-colors hover:bg-primary/10 ${
-                    isActive(page.href) ? "bg-primary/10" : ""
-                  }`}
+                  className="block rounded-md px-3 py-2.5 transition-colors hover:bg-primary/10"
                 >
                   <span className="block text-base font-medium text-text">
-                    {page.label}
+                    Newsletter
                   </span>
                   <span className="block text-xs text-text-muted">
-                    {page.description}
+                    Get occasional updates by email
                   </span>
-                </Link>
+                </a>
               </li>
-            ))}
-            <li>
-              <a
-                href="#newsletter"
-                onClick={() => setIsMenuOpen(false)}
-                className="block rounded-md px-3 py-2.5 transition-colors hover:bg-primary/10"
-              >
-                <span className="block text-base font-medium text-text">
-                  Newsletter
-                </span>
-                <span className="block text-xs text-text-muted">
-                  Get occasional updates by email
-                </span>
-              </a>
-            </li>
-            <li className="pt-2">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                onClick={() => setIsMenuOpen(false)}
-                className="block rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
-              >
-                Let&apos;s Talk
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
-          </header>
+              <li className="pt-2">
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                >
+                  Let&apos;s Talk
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
+      </header>
       <div id="main-content" tabIndex={-1} className="scroll-mt-20 outline-none" />
     </>
   );
