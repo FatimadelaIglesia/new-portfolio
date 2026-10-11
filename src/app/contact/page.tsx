@@ -18,7 +18,7 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-6 pt-6 sm:px-8">
+        <div className="mx-auto max-w-[76rem] px-6 pt-6 sm:px-8">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition-colors hover:text-primary"
