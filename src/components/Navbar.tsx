@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { personalInfo } from "@/lib/data";
 import { CloseIcon, LeafIcon } from "./icons";
+import ThemeToggle from "./ThemeToggle";
 
 const pages = [
   { label: "Home", href: "/", description: "Back to the start" },
