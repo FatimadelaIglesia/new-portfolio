@@ -102,8 +102,7 @@ export default function ContactPage() {
             </h2>
             <p className="mt-2 text-sm text-text-muted">
               Tell me a little about the role or project you have in mind.
-              Pressing send opens your email app with everything filled in,
-              ready for you to send.
+              Your message is sent straight to me and I will reply by email.
             </p>
             <ContactForm />
           </div>
