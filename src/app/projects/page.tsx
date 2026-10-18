@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectSearch from "@/components/ProjectSearch";
 import CtaBanner from "@/components/CtaBanner";
 import { personalInfo, projects } from "@/lib/data";
 import { GitHubIcon } from "@/components/icons";
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description:
     "Front-end projects by Fatima de la Iglesia, including a React weather app, a Seville travel guide, a Spanish poem generator and a world clock.",
 };
+
 export default function ProjectsPage() {
   return (
     <>
@@ -30,7 +31,7 @@ export default function ProjectsPage() {
         <section className="relative overflow-hidden px-6 pt-10 pb-16 text-center sm:px-8 sm:pt-16">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl sm:h-96 sm:w-96"
+            className="pointer-events-none absolute top-10 -left-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl sm:h-96 sm:w-96"
           />
           <div className="relative mx-auto max-w-2xl">
             <span className="text-sm font-semibold uppercase tracking-wider text-accent">
@@ -61,12 +62,7 @@ export default function ProjectsPage() {
 
         <section className="px-6 py-20 sm:px-8">
           <div className="mx-auto max-w-6xl">
-            <h2 className="sr-only">Project list</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project) => (
-                <ProjectCard key={project.title} project={project} />
-              ))}
-            </div>
+            <ProjectSearch projects={projects} />
             <div className="mt-10 text-center">
               <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-primary/10">
                 <GitHubIcon className="size-4" />
