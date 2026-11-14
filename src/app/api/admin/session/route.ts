@@ -1,55 +1,17 @@
-import {
-  SESSION_COOKIE,
-  SESSION_SECONDS,
-  createSessionToken,
-  isAdminConfigured,
-  passwordMatches,
-} from "@/lib/admin";
+import { clearSessionCookie } from "../../../../lib/admin";
 
-function cookieFlags() {
-  return `Path=/; HttpOnly; SameSite=Strict${
-    process.env.NODE_ENV === "production" ? "; Secure" : ""
-  }`;
-}
+export const dynamic = "force-dynamic";
 
-// Log in
-export async function POST(request: Request) {
-  if (!isAdminConfigured()) {
-    return Response.json({ error: "Admin is not set up yet." }, { status: 500 });
+// Log out: clears the session cookie.
+export async function DELETE(request: Request) {
+  if (request.headers.get("x-admin-request") !== "1") {
+    return new Response(JSON.stringify({ error: "Request blocked." }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
   }
-
-  let password = "";
-  try {
-    const body = await request.json();
-    if (typeof body?.password === "string") {
-      password = body.password;
-    }
-  } catch {
-    // An unreadable body counts as a wrong password.
-  }
-
-  if (!passwordMatches(password)) {
-    // A short pause makes guessing passwords slow.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return Response.json({ error: "Wrong password." }, { status: 401 });
-  }
-
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Set-Cookie": `${SESSION_COOKIE}=${createSessionToken()}; ${cookieFlags()}; Max-Age=${SESSION_SECONDS}`,
-    },
-  });
-}
-
-// Log out
-export async function DELETE() {
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Set-Cookie": `${SESSION_COOKIE}=; ${cookieFlags()}; Max-Age=0`,
-    },
-  });
+  const headers = new Headers();
+  headers.append("Set-Cookie", clearSessionCookie());
+  headers.set("Cache-Control", "no-store");
+  return new Response(null, { status: 204, headers });
 }
