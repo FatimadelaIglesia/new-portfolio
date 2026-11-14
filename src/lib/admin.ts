@@ -1,96 +1,154 @@
-import { createHash, randomBytes } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
+import { allowedEmails } from "./google";
 
-export function siteUrl(): string {
-  return (process.env.SITE_URL || "").trim().replace(/\/+$/, "");
-}
+export const SESSION_COOKIE = "session";
+const SESSION_SECONDS = 8 * 60 * 60;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-export function allowedEmails(): string[] {
-  return (process.env.ADMIN_GOOGLE_EMAILS || "")
-    .split(",")
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-export function isGoogleConfigured(): boolean {
-  return Boolean(
-    process.env.GOOGLE_CLIENT_ID &&
-      process.env.GOOGLE_CLIENT_SECRET &&
-      siteUrl()
-  );
-}
-
-export function redirectUri(): string {
-  return siteUrl() + "/api/admin/google/callback";
-}
-
-export function randomToken(bytes = 32): string {
-  return randomBytes(bytes).toString("base64url");
-}
-
-function challengeFor(verifier: string): string {
-  return createHash("sha256").update(verifier).digest("base64url");
-}
-
-export function buildAuthUrl(state: string, verifier: string): string {
-  const params = new URLSearchParams({
-    client_id: process.env.GOOGLE_CLIENT_ID || "",
-    redirect_uri: redirectUri(),
-    response_type: "code",
-    scope: "openid email profile",
-    state,
-    code_challenge: challengeFor(verifier),
-    code_challenge_method: "S256",
-    prompt: "select_account",
-  });
-  return "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
-}
-
-export type GoogleProfile = {
-  sub: string;
+export type AppUser = {
+  id: string;
+  google_email: string | null;
   email: string;
-  verified: boolean;
-  givenName: string;
-  familyName: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  isAdmin: boolean;
 };
 
-export async function fetchGoogleProfile(
-  code: string,
-  verifier: string
-): Promise<GoogleProfile | null> {
-  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      code,
-      client_id: process.env.GOOGLE_CLIENT_ID || "",
-      client_secret: process.env.GOOGLE_CLIENT_SECRET || "",
-      redirect_uri: redirectUri(),
-      grant_type: "authorization_code",
-      code_verifier: verifier,
-    }).toString(),
-  });
-  if (!tokenRes.ok) return null;
-  const tokens = (await tokenRes.json()) as { access_token?: string };
-  if (!tokens.access_token) return null;
-
-  const infoRes = await fetch(
-    "https://openidconnect.googleapis.com/v1/userinfo",
-    { headers: { Authorization: "Bearer " + tokens.access_token } }
+export function isAuthConfigured(): boolean {
+  return Boolean(
+    process.env.SUPABASE_URL &&
+      process.env.SUPABASE_SECRET_KEY &&
+      process.env.GOOGLE_CLIENT_ID &&
+      process.env.GOOGLE_CLIENT_SECRET &&
+      process.env.SITE_URL
   );
-  if (!infoRes.ok) return null;
-  const info = (await infoRes.json()) as {
-    sub?: string;
-    email?: string;
-    email_verified?: boolean;
-    given_name?: string;
-    family_name?: string;
+}
+
+function signingKey(): string {
+  return (
+    (process.env.SUPABASE_SECRET_KEY || "") +
+    ":" +
+    (process.env.GOOGLE_CLIENT_SECRET || "")
+  );
+}
+
+function sign(data: string): string {
+  return createHmac("sha256", signingKey()).update(data).digest("base64url");
+}
+
+export function createSessionToken(userId: string): string {
+  const payload = Buffer.from(
+    JSON.stringify({ uid: userId, exp: Date.now() + SESSION_SECONDS * 1000 })
+  ).toString("base64url");
+  return payload + "." + sign(payload);
+}
+
+export function verifySessionToken(token: string): string | null {
+  if (!token || !isAuthConfigured()) return null;
+  const parts = token.split(".");
+  if (parts.length !== 2) return null;
+  const [payload, sig] = parts;
+  const expected = sign(payload);
+  const a = Buffer.from(sig);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
+  try {
+    const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf8"));
+    if (typeof data.uid !== "string" || !UUID.test(data.uid)) return null;
+    if (typeof data.exp !== "number" || data.exp < Date.now()) return null;
+    return data.uid;
+  } catch {
+    return null;
+  }
+}
+
+export function readCookie(request: Request, name: string): string {
+  const header = request.headers.get("cookie") || "";
+  for (const part of header.split(";")) {
+    const i = part.indexOf("=");
+    if (i < 0) continue;
+    if (part.slice(0, i).trim() === name) return part.slice(i + 1).trim();
+  }
+  return "";
+}
+
+export function sessionCookie(token: string): string {
+  return (
+    SESSION_COOKIE +
+    "=" +
+    token +
+    "; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=" +
+    SESSION_SECONDS
+  );
+}
+
+export function clearSessionCookie(): string {
+  return SESSION_COOKIE + "=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0";
+}
+
+export function isAdminEmail(email: string | null | undefined): boolean {
+  if (!email) return false;
+  return allowedEmails().includes(email.toLowerCase());
+}
+
+export function supabaseRequest(path: string, init: RequestInit = {}): Promise<Response> {
+  const base = (process.env.SUPABASE_URL || "").replace(/\/+$/, "");
+  const key = process.env.SUPABASE_SECRET_KEY || "";
+  const headers: Record<string, string> = {
+    apikey: key,
+    "Content-Type": "application/json",
+    ...((init.headers as Record<string, string>) || {}),
   };
-  if (!info.sub || !info.email) return null;
-  return {
-    sub: String(info.sub),
-    email: String(info.email).toLowerCase(),
-    verified: info.email_verified === true,
-    givenName: String(info.given_name || "").slice(0, 100),
-    familyName: String(info.family_name || "").slice(0, 100),
-  };
+  if (key.startsWith("eyJ")) headers.Authorization = "Bearer " + key;
+  return fetch(base + "/rest/v1/" + path, { ...init, headers, cache: "no-store" });
+}
+
+export async function getUserFromToken(token: string): Promise<AppUser | null> {
+  const uid = verifySessionToken(token);
+  if (!uid) return null;
+  try {
+    const res = await supabaseRequest(
+      "app_users?id=eq." +
+        uid +
+        "&select=id,google_email,email,first_name,last_name,role&limit=1"
+    );
+    if (!res.ok) return null;
+    const rows = (await res.json()) as Omit<AppUser, "isAdmin">[];
+    if (!rows.length) return null;
+    return { ...rows[0], isAdmin: isAdminEmail(rows[0].google_email) };
+  } catch {
+    return null;
+  }
+}
+
+export function getUserFromRequest(request: Request): Promise<AppUser | null> {
+  return getUserFromToken(readCookie(request, SESSION_COOKIE));
+}
+
+function json(status: number, body: unknown): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+  });
+}
+
+export async function requireUser(request: Request): Promise<AppUser | Response> {
+  if (!isAuthConfigured()) return json(503, { error: "Login is not set up yet." });
+  const method = request.method.toUpperCase();
+  if (method !== "GET" && method !== "HEAD") {
+    if (request.headers.get("x-admin-request") !== "1") {
+      return json(403, { error: "Request blocked." });
+    }
+  }
+  const user = await getUserFromRequest(request);
+  if (!user) return json(401, { error: "Please log in." });
+  return user;
+}
+
+export async function requireAdmin(request: Request): Promise<Response | null> {
+  const result = await requireUser(request);
+  if (result instanceof Response) return result;
+  if (!result.isAdmin) return json(403, { error: "Admins only." });
+  return null;
 }
