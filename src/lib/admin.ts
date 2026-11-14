@@ -1,103 +1,96 @@
-import { createHash, createHmac, timingSafeEqual } from "crypto";
+import { createHash, randomBytes } from "crypto";
 
-export const SESSION_COOKIE = "admin_session";
-export const SESSION_SECONDS = 60 * 60 * 8;
+export function siteUrl(): string {
+  return (process.env.SITE_URL || "").trim().replace(/\/+$/, "");
+}
 
-export function isAdminConfigured() {
-  const password = process.env.ADMIN_PASSWORD;
+export function allowedEmails(): string[] {
+  return (process.env.ADMIN_GOOGLE_EMAILS || "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function isGoogleConfigured(): boolean {
   return Boolean(
-    password &&
-      password.length >= 12 &&
-      process.env.SUPABASE_URL &&
-      process.env.SUPABASE_SECRET_KEY
+    process.env.GOOGLE_CLIENT_ID &&
+      process.env.GOOGLE_CLIENT_SECRET &&
+      siteUrl()
   );
 }
 
-function signingKey() {
-  return `${process.env.SUPABASE_SECRET_KEY ?? ""}:${process.env.ADMIN_PASSWORD ?? ""}`;
+export function redirectUri(): string {
+  return siteUrl() + "/api/admin/google/callback";
 }
 
-function sign(payload: string) {
-  return createHmac("sha256", signingKey()).update(payload).digest("base64url");
+export function randomToken(bytes = 32): string {
+  return randomBytes(bytes).toString("base64url");
 }
 
-export function createSessionToken() {
-  const expires = Date.now() + SESSION_SECONDS * 1000;
-  const payload = Buffer.from(JSON.stringify({ exp: expires })).toString("base64url");
-  return `${payload}.${sign(payload)}`;
+function challengeFor(verifier: string): string {
+  return createHash("sha256").update(verifier).digest("base64url");
 }
 
-export function verifySessionToken(token: string | null | undefined) {
-  if (!token || !isAdminConfigured()) return false;
-  const [payload, signature] = token.split(".");
-  if (!payload || !signature) return false;
-
-  const given = Buffer.from(signature);
-  const expected = Buffer.from(sign(payload));
-  if (given.length !== expected.length || !timingSafeEqual(given, expected)) {
-    return false;
-  }
-
-  try {
-    const { exp } = JSON.parse(Buffer.from(payload, "base64url").toString());
-    return typeof exp === "number" && exp > Date.now();
-  } catch {
-    return false;
-  }
-}
-
-export function passwordMatches(input: string) {
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected) return false;
-  const a = createHash("sha256").update(input).digest();
-  const b = createHash("sha256").update(expected).digest();
-  return timingSafeEqual(a, b);
-}
-
-export function readCookie(request: Request, name: string) {
-  const header = request.headers.get("cookie") ?? "";
-  for (const part of header.split(";")) {
-    const [key, ...rest] = part.trim().split("=");
-    if (key === name) return rest.join("=");
-  }
-  return null;
-}
-
-// Returns an error response when the request is not allowed, or null when it is fine.
-export function requireAdmin(request: Request): Response | null {
-  if (!isAdminConfigured()) {
-    return Response.json({ error: "Admin is not set up yet." }, { status: 500 });
-  }
-  if (!verifySessionToken(readCookie(request, SESSION_COOKIE))) {
-    return Response.json({ error: "Not signed in." }, { status: 401 });
-  }
-  if (request.method !== "GET" && request.headers.get("x-admin-request") !== "1") {
-    return Response.json({ error: "Invalid request." }, { status: 403 });
-  }
-  return null;
-}
-
-export function supabaseRequest(
-  path: string,
-  init: { method?: string; body?: string; prefer?: string } = {}
-) {
-  const base = (process.env.SUPABASE_URL ?? "").replace(/\/+$/, "");
-  const key = process.env.SUPABASE_SECRET_KEY ?? "";
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    apikey: key,
-  };
-  // Older JWT-style keys also need this header. The newer sb_ keys must not have it.
-  if (key.startsWith("eyJ")) {
-    headers.Authorization = `Bearer ${key}`;
-  }
-  if (init.prefer) {
-    headers.Prefer = init.prefer;
-  }
-  return fetch(`${base}/rest/v1/${path}`, {
-    method: init.method ?? "GET",
-    headers,
-    body: init.body,
-    cache: "no-store",
+export function buildAuthUrl(state: string, verifier: string): string {
+  const params = new URLSearchParams({
+    client_id: process.env.GOOGLE_CLIENT_ID || "",
+    redirect_uri: redirectUri(),
+    response_type: "code",
+    scope: "openid email profile",
+    state,
+    code_challenge: challengeFor(verifier),
+    code_challenge_method: "S256",
+    prompt: "select_account",
   });
+  return "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+}
+
+export type GoogleProfile = {
+  sub: string;
+  email: string;
+  verified: boolean;
+  givenName: string;
+  familyName: string;
+};
+
+export async function fetchGoogleProfile(
+  code: string,
+  verifier: string
+): Promise<GoogleProfile | null> {
+  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      code,
+      client_id: process.env.GOOGLE_CLIENT_ID || "",
+      client_secret: process.env.GOOGLE_CLIENT_SECRET || "",
+      redirect_uri: redirectUri(),
+      grant_type: "authorization_code",
+      code_verifier: verifier,
+    }).toString(),
+  });
+  if (!tokenRes.ok) return null;
+  const tokens = (await tokenRes.json()) as { access_token?: string };
+  if (!tokens.access_token) return null;
+
+  const infoRes = await fetch(
+    "https://openidconnect.googleapis.com/v1/userinfo",
+    { headers: { Authorization: "Bearer " + tokens.access_token } }
+  );
+  if (!infoRes.ok) return null;
+  const info = (await infoRes.json()) as {
+    sub?: string;
+    email?: string;
+    email_verified?: boolean;
+    given_name?: string;
+    family_name?: string;
+  };
+  if (!info.sub || !info.email) return null;
+  return {
+    sub: String(info.sub),
+    email: String(info.email).toLowerCase(),
+    verified: info.email_verified === true,
+    givenName: String(info.given_name || "").slice(0, 100),
+    familyName: String(info.family_name || "").slice(0, 100),
+  };
 }
