@@ -1,9 +1,11 @@
-import { requireAdmin, supabaseRequest } from "@/lib/admin";
-import { parseMessageInput } from "@/lib/messages";
+import { requireAdmin, supabaseRequest } from "../../../../lib/admin";
+import { parseMessageInput } from "../../../../lib/messages";
+
+export const dynamic = "force-dynamic";
 
 // Read: list all messages, newest first
 export async function GET(request: Request) {
-  const denied = requireAdmin(request);
+  const denied = await requireAdmin(request);
   if (denied) return denied;
 
   const response = await supabaseRequest(
@@ -18,7 +20,7 @@ export async function GET(request: Request) {
 
 // Create: add a message by hand
 export async function POST(request: Request) {
-  const denied = requireAdmin(request);
+  const denied = await requireAdmin(request);
   if (denied) return denied;
 
   let body: unknown;
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
   const response = await supabaseRequest("contact_messages", {
     method: "POST",
     body: JSON.stringify(data),
-    prefer: "return=representation",
+    headers: { Prefer: "return=representation" },
   });
   if (!response.ok) {
     console.error("Creating a message failed with status", response.status);
