@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { personalInfo } from "@/lib/data";
 import { CloseIcon, LeafIcon } from "./icons";
 import ThemeToggle from "./ThemeToggle";
+import AccountMenu from "./AccountMenu";
 
 const pages = [
   { label: "Home", href: "/", description: "Back to the start" },
@@ -28,6 +29,11 @@ const pages = [
     label: "Contact",
     href: "/contact",
     description: "Get in touch about junior roles",
+  },
+  {
+    label: "Guestbook",
+    href: "/guestbook",
+    description: "Leave a message (log in with Google)",
   },
 ];
 
@@ -119,11 +125,11 @@ export default function Navbar() {
             Fatima de la Iglesia
           </Link>
 
-          <div className="hidden items-center gap-4 md:flex">
+          <div className="hidden items-center gap-4 lg:flex">
             <div ref={dropdownRef} className="relative">
               <button
                 type="button"
-                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
                 aria-expanded={isDropdownOpen}
                 aria-controls="pages-menu"
                 className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-primary/10 hover:text-primary"
@@ -169,6 +175,7 @@ export default function Navbar() {
               Newsletter
             </a>
             <ThemeToggle />
+            <AccountMenu variant="desktop" />
             <a
               href={`mailto:${personalInfo.email}`}
               className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:shadow-md"
@@ -177,7 +184,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <ThemeToggle />
             <button
               type="button"
@@ -195,7 +202,7 @@ export default function Navbar() {
         {isMenuOpen && (
           <div
             id="mobile-menu"
-            className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-6 pb-6 md:hidden"
+            className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-border/70 bg-background px-6 pb-6 lg:hidden"
           >
             <ul className="flex flex-col gap-1 pt-4">
               {pages.map((page) => (
@@ -231,6 +238,7 @@ export default function Navbar() {
                   </span>
                 </a>
               </li>
+              <AccountMenu variant="mobile" onNavigate={() => setIsMenuOpen(false)} />
               <li className="pt-2">
                 <a
                   href={`mailto:${personalInfo.email}`}
