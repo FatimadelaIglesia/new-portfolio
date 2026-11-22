@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useState } from "react";
+import { useToast } from "@/components/ToastProvider";
 import Link from "next/link";
 import { loadCurrentUser } from "@/lib/currentUser";
 import type { PublicUser } from "@/lib/currentUser";
@@ -35,6 +36,7 @@ function formatDate(iso: string): string {
 
 export default function GuestbookClient() {
   const uid = useId();
+  const { toast } = useToast();
   const [user, setUser] = useState<PublicUser | null | undefined>(undefined);
   const [entries, setEntries] = useState<Entry[] | null>(null);
   const [loadError, setLoadError] = useState("");
@@ -43,6 +45,10 @@ export default function GuestbookClient() {
   const [busy, setBusy] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
+
+  useEffect(() => {
+    if (status) toast(status.text, status.ok ? "success" : "error");
+  }, [status, toast]);
 
   const load = useCallback(async () => {
     try {
@@ -122,6 +128,7 @@ export default function GuestbookClient() {
         setStatus({ ok: false, text: json.error ?? "Could not save your changes." });
       } else {
         setEditingId(null);
+        setStatus({ ok: true, text: "Message updated." });
         await load();
       }
     } catch {
@@ -142,6 +149,7 @@ export default function GuestbookClient() {
       if (!response.ok) {
         setStatus({ ok: false, text: "Could not delete the message." });
       } else {
+        setStatus({ ok: true, text: "Message deleted." });
         await load();
       }
     } catch {
@@ -197,7 +205,7 @@ export default function GuestbookClient() {
         </form>
       )}
 
-      {status && (
+      {status && !status.ok && (
         <p
           role={status.ok ? "status" : "alert"}
           className={`mt-5 rounded-xl px-4 py-3 text-sm font-medium ${
