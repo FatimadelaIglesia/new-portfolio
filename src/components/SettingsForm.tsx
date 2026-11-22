@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import { useToast } from "@/components/ToastProvider";
 import { parseProfileInput } from "@/lib/profile";
 import { resetCurrentUser } from "@/lib/currentUser";
 import type { PublicUser } from "@/lib/currentUser";
@@ -11,11 +12,16 @@ const labelClass = "mb-1.5 block text-sm font-medium text-text";
 
 export default function SettingsForm({ user }: { user: PublicUser }) {
   const uid = useId();
+  const { toast } = useToast();
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
   const [status, setStatus] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (status) toast(status.text, status.ok ? "success" : "error");
+  }, [status, toast]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -131,7 +137,7 @@ export default function SettingsForm({ user }: { user: PublicUser }) {
           </p>
         </div>
 
-        {status && (
+        {status && !status.ok && (
           <p
             role={status.ok ? "status" : "alert"}
             className={`mt-5 rounded-xl px-4 py-3 text-sm font-medium ${
