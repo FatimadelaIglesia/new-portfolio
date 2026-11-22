@@ -41,15 +41,17 @@ export default function NewsletterForm() {
     }
 
     setStatus("submitting");
-    const data = new FormData(event.currentTarget);
-    data.set("firstName", firstName.trim());
-    data.set("email", email.trim());
+    const honeypot = new FormData(event.currentTarget).get("bot-field");
 
     try {
-      const response = await fetch("/__forms.html", {
+      const response = await fetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          email: email.trim(),
+          website: typeof honeypot === "string" ? honeypot : "",
+        }),
       });
       setStatus(response.ok ? "success" : "error");
     } catch {
@@ -85,10 +87,8 @@ export default function NewsletterForm() {
           <form
             onSubmit={handleSubmit}
             noValidate
-            name="newsletter"
             className="mt-8 text-left"
           >
-            <input type="hidden" name="form-name" value="newsletter" />
             <div className="hidden" aria-hidden="true">
               <label>
                 Leave this field empty
